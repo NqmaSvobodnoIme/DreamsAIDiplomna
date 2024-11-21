@@ -1,0 +1,13 @@
+﻿@model Dream
+<h2>Редакция на сън</h2>
+<form method="post">
+    <div>
+        <label>Заглавие</label>
+        <input type="text" asp-for="Title" />
+    </div>
+    <div>
+        <label>Описание</label>
+        <textarea asp-for="Description"></textarea>
+    </div>
+    <button type="submit">Запази</button>
+</form>

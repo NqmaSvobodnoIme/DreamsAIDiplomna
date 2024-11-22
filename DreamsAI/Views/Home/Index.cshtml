@@ -1,12 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Начална страница";
 }
+<div class="main-container">
+    <h1>Добре дошли в DreamsAI</h1>
+    <p>Създайте и анализирайте вашите сънища лесно!</p>
 
-<h1>Добре дошли в DreamsAI</h1>
-<p>Създайте и анализирайте вашите сънища лесно!</p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <!-- Бутоните за логнати потребители -->
+        <a href="/Dreams/Create" class="btn btn-custom">Добави нов сън</a>
+        <a href="/Dreams" class="btn btn-custom">Преглед на сънища</a>
+    }
+    else
+    {
+        <!-- Съобщение за гости -->
+        <p>
+            Моля, <a href="/Identity/Account/Login" style="color: #FFD700; font-weight: bold;">влезте в акаунта си</a>, за да използвате всички функции на сайта.
+        </p>
+    }
+</div>
 
-<!-- Бутон за добавяне на сън -->
-<a href="/Dreams/Create" class="btn btn-primary">Добави нов сън</a>
 
-<!-- Бутон за преглед на сънища -->
-<a href="/Dreams" class="btn btn-secondary">Преглед на сънища</a>
+
+
+
+
+
+
+
+
+

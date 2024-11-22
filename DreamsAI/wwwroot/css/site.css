@@ -1,22 +1,346 @@
-html {
-  font-size: 14px;
+@ {
+    ViewData ["Title"] = "Начална страница";
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Професионален градиентен фон */
 body {
-  margin-bottom: 60px;
+    background: linear-gradient(135deg, #37315C, #DDD9F5); /* Градиент в синята гама */
+    color: #ffffff; /* Бял текст за контраст */
+    font-family: 'Poppins', sans-serif; /* Модерен шрифт */
+    margin: 0;
+    padding: 0;
 }
+
+/* Централно съдържание */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Покрива цялата височина на прозореца */
+    text-align: center;
+}
+
+/* Заглавие */
+h1 {
+    font-size: 64px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* Подзаглавие */
+p {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #D1E8FF; /* По-светъл текст за подзаглавието */
+    animation: fadeIn 3s ease-in-out;
+}
+
+/* Бутоните */
+.btn-custom {
+    background-color: #DDD9F5; /* Бял фон */
+    color: #37315C; /* Син текст */
+    border: 2px solid #ffffff; /* Бял контур */
+    border-radius: 8px;
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 250px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+    /* Hover ефект за бутоните */
+    .btn-custom:hover {
+        background-color: #37315C;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        transform: scale(1.05); /* Увеличение при hover */
+    }
+
+/* Анимация за заглавията */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Основен контейнер */
+.form-container {
+    background: linear-gradient(135deg, #4F3FB6, #3B2FA0); /* Градиент от #4F3FB6 към по-тъмен нюанс */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin: 50px auto;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+    /* Заглавие на формата */
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #FFFFFF;
+        text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Стилизация на полетата */
+    .form-container input[type="text"],
+    .form-container textarea {
+        width: 100%;
+        padding: 15px;
+        border-radius: 8px;
+        border: none;
+        margin-bottom: 20px;
+        font-size: 16px;
+        background-color: #fff;
+        color: #37315C;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        /* Фокус на полетата */
+        .form-container input[type="text"]:focus,
+        .form-container textarea:focus {
+            outline: none;
+            border: 2px solid #4A90E2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Бутон "Запази" */
+    .form-container button {
+        background-color: #4A90E2;
+        color: #fff;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .form-container button:hover {
+            background-color: #37315C;
+            transform: translateY(-2px); /* Леко издигане */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container button:active {
+            transform: translateY(0); /* Връщане при клик */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Текстови етикети */
+    .form-container label {
+        font-size: 14px;
+        margin-bottom: 8px;
+        display: block;
+        font-weight: bold;
+        color: #D1E8FF; /* По-светъл текст за контраст */
+    }
+
+
+
+
+/* Основен контейнер */
+.list-container {
+    background: linear-gradient(135deg, #4F3FB6, #3B2FA0); /* Градиентен фон */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Мека сянка */
+    max-width: 900px;
+    margin: 50px auto;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+}
+
+    /* Заглавие */
+    .list-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Линк за "Добави нов сън" */
+    .list-container a.add-link {
+        color: #FFD700;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+        .list-container a.add-link:hover {
+            color: #FFFFFF;
+            text-decoration: underline;
+        }
+
+/* Таблица */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    color: #37315C;
+}
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .table th {
+        background: #4F3FB6;
+        color: #ffffff;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .table tr:nth-child(even) {
+        background: #F8F8F8; /* Светлосив фон за четни редове */
+    }
+
+    .table tr:hover {
+        background: #E0E0E0; /* Подчертаване на ред при hover */
+    }
+
+    .table td.actions {
+        text-align: center;
+    }
+
+/* Бутон за действия */
+.button {
+    background: #4F3FB6;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-transform: uppercase;
+}
+
+    .button:hover {
+        background: #37315C;
+    }
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 48px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .btn-custom {
+        width: 200px;
+        font-size: 16px;
+    }
+}
+
+
+
+/* Анимация за плавно появяване */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-container {
+    animation: fadeInUp 1s ease;
+}
+
+
+
+
+/* Респонсив дизайн за таблицата */
+@media (max-width: 768px) {
+    .table, .table thead, .table tbody, .table th, .table td, .table tr {
+        display: block;
+        width: 100%;
+    }
+
+        .table tr {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 10px;
+        }
+
+        .table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+        }
+
+            .table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #4F3FB6;
+            }
+}
+
+
+
+
+/* Плавно появяване */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table {
+    animation: fadeIn 1s ease-in-out;
+}
+
+
+

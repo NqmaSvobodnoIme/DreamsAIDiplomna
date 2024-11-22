@@ -1,28 +1,31 @@
 ﻿@model IEnumerable<Dream>
-<h2>Списък със сънища</h2>
-<a href="/Dreams/Create">Добави нов сън</a>
-<table>
-    <thead>
-        <tr>
-            <th>Заглавие</th>
-            <th>Описание</th>
-            <th>Дата</th>
-            <th>Действия</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var dream in Model)
 
-        {
+<div class="list-container">
+    <h2>Списък със сънища</h2>
+    <a href="/Dreams/Create" class="add-link">Добави нов сън</a>
+
+    <table class="table">
+        <thead>
             <tr>
-                <td>@dream.Title</td>
-                <td>@dream.Description</td>
-                <td>@dream.CreatedAt.ToShortDateString()</td>
-                <td>
-                    <a href="/Dreams/Edit/@dream.Id">Редакция</a> |
-                    <a href="/Dreams/Delete/@dream.Id">Изтриване</a>
-                </td>
+                <th>Заглавие</th>
+                <th>Описание</th>
+                <th>Дата</th>
+                <th>Действия</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var dream in Model)
+            {
+                <tr>
+                    <td>@dream.Title</td>
+                    <td>@dream.Description</td>
+                    <td>@dream.CreatedAt.ToString("dd.MM.yyyy")</td>
+                    <td>
+                        <a href="/Dreams/Edit/@dream.Id" class="button">Редактирай</a>
+                        <a href="/Dreams/Delete/@dream.Id" class="button">Изтрий</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

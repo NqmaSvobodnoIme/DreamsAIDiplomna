@@ -54,15 +54,17 @@ namespace DreamsAI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedAt")] Dream dream)
+        public async Task<IActionResult> Create(Dream model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(dream);
+                // Запазване в базата данни
+                _context.Dream.Add(model);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Index");
             }
-            return View(dream);
+            return View(model);
         }
 
         // GET: Dreams/Edit/5

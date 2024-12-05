@@ -1,28 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DreamsAI.Data;
 using DreamsAI.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace DreamsAI.Controllers
 {
     public class DreamsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly OpenAIClient _openAIClient;
 
-        public DreamsController(ApplicationDbContext context)
+        public DreamsController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+
+            // Зареждане на API ключа от конфигурационния файл
+            var apiKey = configuration["OpenAI:ApiKey"];
+            _openAIClient = new OpenAIClient(apiKey);
         }
 
         // GET: Dreams
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Dream.ToListAsync());
+            var dreams = from d in _context.Dream select d;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                dreams = dreams.Where(d => d.Title.Contains(searchString) || d.Description.Contains(searchString));
+            }
+
+            return View(await dreams.ToListAsync());
         }
 
         // GET: Dreams/Details/5
@@ -50,21 +61,39 @@ namespace DreamsAI.Controllers
         }
 
         // POST: Dreams/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Dream model)
+        public async Task<IActionResult> Create(Dream dream)
         {
             if (ModelState.IsValid)
             {
-                // Запазване в базата данни
-                _context.Dream.Add(model);
+                // Извикване на AI API за анализ на съня
+                if (!string.IsNullOrEmpty(dream.Description))
+                {
+                    dream.Analysis = await _openAIClient.AnalyzeDreamAsync(dream.Description);
+                }
+
+                // Задаване на CreatedAt
+                dream.CreatedAt = DateTime.Now;
+
+                // Запазване на съня в базата данни
+                _context.Add(dream);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            return View(model);
+
+            return View(dream);
+        }
+
+        // GET: Dreams/ManageDreams (показва сънищата, сортирани по категория)
+        public async Task<IActionResult> ManageDreams()
+        {
+            var dreams = await _context.Dream
+                .OrderBy(d => d.Category) // Сортиране по категория
+                .ToListAsync();
+
+            return View(dreams);
         }
 
         // GET: Dreams/Edit/5
@@ -84,11 +113,9 @@ namespace DreamsAI.Controllers
         }
 
         // POST: Dreams/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedAt")] Dream dream)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedAt,Time,Category,Analysis")] Dream dream)
         {
             if (id != dream.Id)
             {
@@ -99,6 +126,13 @@ namespace DreamsAI.Controllers
             {
                 try
                 {
+                    // Проверка дали описанието е променено и извикване на AI API за нов анализ
+                    if (!string.IsNullOrEmpty(dream.Description))
+                    {
+                        dream.Analysis = await _openAIClient.AnalyzeDreamAsync(dream.Description);
+                    }
+
+                    // Актуализиране на съня в базата данни
                     _context.Update(dream);
                     await _context.SaveChangesAsync();
                 }
@@ -113,8 +147,10 @@ namespace DreamsAI.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(dream);
         }
 
@@ -157,3 +193,4 @@ namespace DreamsAI.Controllers
         }
     }
 }
+

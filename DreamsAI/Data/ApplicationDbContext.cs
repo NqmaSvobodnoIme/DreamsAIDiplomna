@@ -9,7 +9,9 @@ namespace DreamsAI.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
-        public DbSet<DreamsAI.Models.Dream> Dream { get; set; } = default!;
+
+        public virtual DbSet<Dream> Dream { get; set; }
     }
 }

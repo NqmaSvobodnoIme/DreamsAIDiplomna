@@ -70,7 +70,7 @@ namespace DreamsAI.Controllers
                 // Извикване на AI API за анализ на съня
                 if (!string.IsNullOrEmpty(dream.Description))
                 {
-                    dream.Analysis = await _openAIClient.AnalyzeDreamAsync(dream.Description);
+                    //dream.Analysis = await  _openAIClient.AnalyzeDreamAsync(dream.Description);
                 }
 
                 // Задаване на CreatedAt
@@ -129,7 +129,7 @@ namespace DreamsAI.Controllers
                     // Проверка дали описанието е променено и извикване на AI API за нов анализ
                     if (!string.IsNullOrEmpty(dream.Description))
                     {
-                        dream.Analysis = await _openAIClient.AnalyzeDreamAsync(dream.Description);
+                       // dream.Analysis = await _openAIClient.AnalyzeDreamAsync(dream.Description);
                     }
 
                     // Актуализиране на съня в базата данни

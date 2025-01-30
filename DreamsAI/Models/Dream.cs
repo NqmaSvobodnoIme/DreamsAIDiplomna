@@ -13,7 +13,7 @@ namespace DreamsAI.Models
         // Добавяне на отделно поле за време, ако е нужно
         public TimeSpan Time { get; set; }
         public string Category { get; set; }
-        public string Analysis { get; set; }
+        //public string Analysis { get; set; }
 
 
     }

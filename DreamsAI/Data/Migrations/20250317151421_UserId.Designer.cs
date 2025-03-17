@@ -4,6 +4,7 @@ using DreamsAI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DreamsAI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250317151421_UserId")]
+    partial class UserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +53,7 @@ namespace DreamsAI.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dream", (string)null);
+                    b.ToTable("Dream");
                 });
 
             modelBuilder.Entity("DreamsAI.Models.SleepSession", b =>
@@ -80,7 +83,7 @@ namespace DreamsAI.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SleepSessions", (string)null);
+                    b.ToTable("SleepSessions");
                 });
 
             modelBuilder.Entity("DreamsAI.Models.User", b =>
@@ -98,7 +101,7 @@ namespace DreamsAI.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

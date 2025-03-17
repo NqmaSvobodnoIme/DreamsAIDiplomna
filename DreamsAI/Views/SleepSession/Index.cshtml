@@ -1,0 +1,37 @@
+﻿@model IEnumerable<DreamsAI.Models.SleepSession>
+@{
+    ViewData["Title"] = "Sleep Sessions";
+}
+
+<h2>Sleep Sessions</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Sleep Session</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Bed Time</th>
+            <th>Wake Up Time</th>
+            <th>Duration (hours)</th>
+            <th>Sleep Quality</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BedTime.ToString("g")</td>
+                <td>@item.WakeUpTime.ToString("g")</td>
+                <td>@item.Duration</td>
+                <td>@item.SleepQuality</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

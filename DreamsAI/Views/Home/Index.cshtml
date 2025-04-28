@@ -1,0 +1,53 @@
+﻿@model IEnumerable<DreamsAI.Models.SleepSession>
+
+@{
+	ViewData["Title"] = "Sleep Tracker Dashboard";
+}
+
+<h2>Welcome to DreamsAI - Your Sleep Tracker</h2>
+
+<div class="alert alert-info">
+	<strong>Average Sleep Duration (Last 7 Sessions):</strong> @ViewData["AvgSleepDuration"] hours
+</div>
+
+<a asp-controller="SleepSession" asp-action="Create" class="btn btn-primary">Log New Sleep</a>
+<a asp-controller="SleepSession" asp-action="Index" class="btn btn-secondary">View All Sleep Logs</a>
+
+<hr />
+
+<h3>Recent Sleep Sessions</h3>
+
+@if (!Model.Any())
+{
+	<p>No sleep data available. Start logging your sleep!</p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Bed Time</th>
+				<th>Wake Up Time</th>
+				<th>Duration</th>
+				<th>Quality</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var session in Model)
+			{
+				<tr>
+					<td>@session.BedTime.ToString("yyyy-MM-dd HH:mm")</td>
+					<td>@session.WakeUpTime.ToString("yyyy-MM-dd HH:mm")</td>
+					<td>@session.Duration</td>
+					<td>@session.SleepQuality / 10</td>
+					<td>
+						<a asp-controller="Sleep" asp-action="Details" asp-route-id="@session.Id" class="btn btn-info btn-sm">Details</a>
+						<a asp-controller="Sleep" asp-action="Edit" asp-route-id="@session.Id" class="btn btn-warning btn-sm">Edit</a>
+						<a asp-controller="Sleep" asp-action="Delete" asp-route-id="@session.Id" class="btn btn-danger btn-sm">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
